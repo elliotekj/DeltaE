@@ -1,7 +1,15 @@
 [package]
 name = "delta_e"
+description = "DeltaE is a pure-Rust implementation of the CIEDE2000 algorithm"
 version = "0.1.0"
 authors = ["Elliot Jackson <elliotekj@gmail.com>"]
+documentation = "https://docs.rs/elliotekj/0.1.0/delta_e/"
+homepage = "https://github.com/elliotekj/DeltaE"
+repository = "https://github.com/elliotekj/DeltaE"
+readme = "README.md"
+keywords = ["delta", "CIE", "quantify", "color", "difference"]
+categories = ["algorithms", "multimedia::images"]
+license = "MIT"
 
 [dependencies]
 lab = "0.4.2"
