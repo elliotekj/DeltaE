@@ -3,6 +3,9 @@ use super::{f32, Lab};
 pub struct DE2000;
 
 impl DE2000 {
+    //! Returns the difference between two `Lab` colors as calculated by the
+    //! [CIEDE2000 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000).
+
     pub fn new(x1: Lab, x2: Lab) -> f32 {
         let ksub_l = 1.0;
         let ksub_c = 1.0;
