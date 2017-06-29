@@ -74,7 +74,7 @@ impl DE2000 {
 }
 
 fn get_h_prime_fn(x: f32, y: f32) -> f32 {
-    let hue_angle;
+    let mut hue_angle;
 
     if x == 0.0 && y == 0.0 {
         return 0.0;
@@ -83,7 +83,7 @@ fn get_h_prime_fn(x: f32, y: f32) -> f32 {
     hue_angle = radians_to_degrees(x.atan2(y));
 
     if hue_angle < 0.0 {
-        hue_angle + 360.0;
+        hue_angle += 360.0;
     }
 
     hue_angle
@@ -99,9 +99,9 @@ fn get_delta_h_prime(c1: f32, c2: f32, h_prime_1: f32, h_prime_2: f32) -> f32 {
     }
 
     if h_prime_2 <= h_prime_1 {
-        return h_prime_2 - h_prime_1 + 360.0;
+        h_prime_2 - h_prime_1 + 360.0
     } else {
-        return h_prime_2 - h_prime_1 - 360.0;
+        h_prime_2 - h_prime_1 - 360.0
     }
 }
 
