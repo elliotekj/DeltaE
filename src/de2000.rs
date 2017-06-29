@@ -42,7 +42,7 @@ impl DE2000 {
 
         let delta_h_prime = get_delta_h_prime(c1, c2, h_prime_1, h_prime_2);
 
-        let delta_updase_h_prime = 2.0 * (c_prime_1 * c_prime_2).sqrt() *
+        let delta_upcase_h_prime = 2.0 * (c_prime_1 * c_prime_2).sqrt() *
                                    (degrees_to_radians(delta_h_prime) / 2.0).sin();
 
         let upcase_h_bar_prime = get_upcase_h_bar_prime(h_prime_1, h_prime_2);
@@ -57,7 +57,7 @@ impl DE2000 {
 
         let chroma: f32 = delta_c_prime / (ksub_c * s_sub_c);
 
-        let hue: f32 = delta_updase_h_prime / (ksub_h * s_sub_upcase_h);
+        let hue: f32 = delta_upcase_h_prime / (ksub_h * s_sub_upcase_h);
 
         (lightness.powi(2) + chroma.powi(2) + hue.powi(2) + r_sub_t * chroma * hue).sqrt()
     }
