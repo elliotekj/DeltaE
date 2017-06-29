@@ -6,27 +6,27 @@ impl DE2000 {
     /// Returns the difference between two `Lab` colors as calculated by the
     /// [CIEDE2000 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000).
 
-    pub fn new(x1: Lab, x2: Lab) -> f32 {
+    pub fn new(color_1: Lab, color_2: Lab) -> f32 {
         let ksub_l = 1.0;
         let ksub_c = 1.0;
         let ksub_h = 1.0;
 
-        let delta_l_prime = x2.l - x1.l;
+        let delta_l_prime = color_2.l - color_1.l;
 
-        let l_bar = (x1.l + x2.l) / 2.0;
+        let l_bar = (color_1.l + color_2.l) / 2.0;
 
-        let c1 = (x1.a.powi(2) + x1.b.powi(2)).sqrt();
-        let c2 = (x2.a.powi(2) + x2.b.powi(2)).sqrt();
+        let c1 = (color_1.a.powi(2) + color_1.b.powi(2)).sqrt();
+        let c2 = (color_2.a.powi(2) + color_2.b.powi(2)).sqrt();
 
         let c_bar = (c1 + c2) / 2.0;
 
         let a_prime_1 =
-            x1.a + (x1.a / 2.0) * (1.0 - (c_bar.powi(7) / (c_bar.powi(7) + 25f32.powi(7))).sqrt());
+            color_1.a + (color_1.a / 2.0) * (1.0 - (c_bar.powi(7) / (c_bar.powi(7) + 25f32.powi(7))).sqrt());
         let a_prime_2 =
-            x2.a + (x2.a / 2.0) * (1.0 - (c_bar.powi(7) / (c_bar.powi(7) + 25f32.powi(7))).sqrt());
+            color_2.a + (color_2.a / 2.0) * (1.0 - (c_bar.powi(7) / (c_bar.powi(7) + 25f32.powi(7))).sqrt());
 
-        let c_prime_1 = (a_prime_1.powi(2) + x1.b.powi(2)).sqrt();
-        let c_prime_2 = (a_prime_2.powi(2) + x2.b.powi(2)).sqrt();
+        let c_prime_1 = (a_prime_1.powi(2) + color_1.b.powi(2)).sqrt();
+        let c_prime_2 = (a_prime_2.powi(2) + color_2.b.powi(2)).sqrt();
 
         let c_bar_prime = (c_prime_1 + c_prime_2) / 2.0;
 
@@ -37,8 +37,8 @@ impl DE2000 {
 
         let s_sub_c = 1.0 + 0.045 * c_bar_prime;
 
-        let h_prime_1 = get_h_prime_fn(x1.b, a_prime_1);
-        let h_prime_2 = get_h_prime_fn(x2.b, a_prime_2);
+        let h_prime_1 = get_h_prime_fn(color_1.b, a_prime_1);
+        let h_prime_2 = get_h_prime_fn(color_2.b, a_prime_2);
 
         let delta_h_prime = get_delta_h_prime(c1, c2, h_prime_1, h_prime_2);
 
@@ -65,11 +65,11 @@ impl DE2000 {
     /// Returns the difference between two RGB colors as calculated by the
     /// [CIEDE2000 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000).
 
-    pub fn from_rgb(x1: &[u8; 3], x2: &[u8; 3]) -> f32 {
-        let l1 = Lab::from_rgb(x1);
-        let l2 = Lab::from_rgb(x2);
+    pub fn from_rgb(color_1: &[u8; 3], color_2: &[u8; 3]) -> f32 {
+        let lab_1 = Lab::from_rgb(color_1);
+        let lab_2 = Lab::from_rgb(color_2);
 
-        DE2000::new(l1, l2)
+        DE2000::new(lab_1, lab_2)
     }
 }
 
@@ -143,19 +143,19 @@ mod tests {
     }
 
     fn assert_delta_e(expected: f32, lab1: &[f32; 3], lab2: &[f32; 3]) {
-        let x1 = Lab {
+        let color_1 = Lab {
             l: lab1[0],
             a: lab1[1],
             b: lab1[2],
         };
 
-        let x2 = Lab {
+        let color_2 = Lab {
             l: lab2[0],
             a: lab2[1],
             b: lab2[2],
         };
 
-        assert_eq!(round(DE2000::new(x1, x2)), expected);
+        assert_eq!(round(DE2000::new(color_1, color_2)), expected);
     }
 
     // Tests taken from Table 1: "CIEDE2000 total color difference test data" of
