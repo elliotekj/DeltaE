@@ -3,8 +3,8 @@ use super::{f32, Lab};
 pub struct DE2000;
 
 impl DE2000 {
-    //! Returns the difference between two `Lab` colors as calculated by the
-    //! [CIEDE2000 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000).
+    /// Returns the difference between two `Lab` colors as calculated by the
+    /// [CIEDE2000 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000).
 
     pub fn new(x1: Lab, x2: Lab) -> f32 {
         let ksub_l = 1.0;
@@ -60,6 +60,16 @@ impl DE2000 {
         let hue: f32 = delta_upcase_h_prime / (ksub_h * s_sub_upcase_h);
 
         (lightness.powi(2) + chroma.powi(2) + hue.powi(2) + r_sub_t * chroma * hue).sqrt()
+    }
+
+    /// Returns the difference between two RGB colors as calculated by the
+    /// [CIEDE2000 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000).
+
+    pub fn from_rgb(x1: &[u8; 3], x2: &[u8; 3]) -> f32 {
+        let l1 = Lab::from_rgb(x1);
+        let l2 = Lab::from_rgb(x2);
+
+        DE2000::new(l1, l2)
     }
 }
 
