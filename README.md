@@ -15,14 +15,14 @@ of the algorithm.
 
 If you're using Cargo, just add DeltaE to your `Cargo.toml`:
 
-```
+```toml
 [dependencies]
-delta_e = "0.1.0"
+delta_e = "0.2.0"
 ```
 
 ## Example
 
-```
+```rust
 extern crate delta_e;
 extern crate lab;
 

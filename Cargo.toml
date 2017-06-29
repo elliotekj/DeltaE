@@ -1,7 +1,7 @@
 [package]
 name = "delta_e"
 description = "DeltaE is a pure-Rust implementation of the CIEDE2000 algorithm"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Elliot Jackson <elliotekj@gmail.com>"]
 documentation = "https://docs.rs/delta_e"
 homepage = "https://github.com/elliotekj/DeltaE"
