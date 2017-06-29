@@ -3,8 +3,34 @@ use super::{f32, Lab};
 pub struct DE2000;
 
 impl DE2000 {
-    /// Returns the difference between two `Lab` colors as calculated by the
-    /// [CIEDE2000 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000).
+    /// Returns the difference between two `Lab` colors.
+    ///
+    /// ### Example
+    ///
+    /// ```
+    /// extern crate delta_e;
+    /// extern crate lab;
+    ///
+    /// use delta_e::DE2000;
+    /// use lab::Lab;
+    ///
+    /// fn main() {
+    ///     let color_1 = Lab {
+    ///         l: 38.972,
+    ///         a: 58.991,
+    ///         b: 37.138,
+    ///     };
+    ///
+    ///     let color_2 = Lab {
+    ///         l: 54.528,
+    ///         a: 42.416,
+    ///         b: 54.497,
+    ///     };
+    ///
+    ///     let delta_e = DE2000::new(color_1, color_2);
+    ///     println!("The color difference is: {}", delta_e);
+    /// }
+    /// ```
 
     pub fn new(color_1: Lab, color_2: Lab) -> f32 {
         let ksub_l = 1.0;
@@ -62,8 +88,23 @@ impl DE2000 {
         (lightness.powi(2) + chroma.powi(2) + hue.powi(2) + r_sub_t * chroma * hue).sqrt()
     }
 
-    /// Returns the difference between two RGB colors as calculated by the
-    /// [CIEDE2000 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000).
+    /// Returns the difference between two RGB colors.
+    ///
+    /// ### Example
+    ///
+    /// ```
+    /// extern crate delta_e;
+    ///
+    /// use delta_e::DE2000;
+    ///
+    /// fn main() {
+    ///     let color_1 = [234, 76, 76];
+    ///     let color_2 = [76, 187, 234];
+    ///
+    ///     let delta_e = DE2000::from_rgb(&color_1, &color_2);
+    ///     println!("The color difference is: {}", delta_e);
+    /// }
+    /// ```
 
     pub fn from_rgb(color_1: &[u8; 3], color_2: &[u8; 3]) -> f32 {
         let lab_1 = Lab::from_rgb(color_1);
