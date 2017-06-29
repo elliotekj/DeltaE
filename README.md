@@ -1,5 +1,9 @@
 # DeltaE - Quantify color differences in Rust
 
+[![Crates.io](https://meritbadge.herokuapp.com/delta_e)](https://crates.io/crates/delta_e)
+[![Docs](https://docs.rs/delta_e/badge.svg)](https://docs.rs/delta_e)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/elliotekj/DeltaE/blob/master/LICENSE)
+
 DeltaE is a pure-Rust implementation of the [CIEDE2000
 algorithm](http://en.wikipedia.org/wiki/Color_difference#CIEDE2000) which serves
 to quantify the difference between two colors. It is entirely based on the work
