@@ -1,6 +1,7 @@
 # DeltaE - Quantify color differences in Rust
 
 [![Crates.io](https://meritbadge.herokuapp.com/delta_e)](https://crates.io/crates/delta_e)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/xiph/rav1e?branch=master&svg=true)](https://ci.appveyor.com/project/tdaede/rav1e/history)
 [![Docs](https://docs.rs/delta_e/badge.svg)](https://docs.rs/delta_e)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/elliotekj/DeltaE/blob/master/LICENSE)
 
