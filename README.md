@@ -42,7 +42,7 @@ fn main() {
         b: 54.497,
     };
 
-    let delta_e = DE2000::new(color_1, color_2);
+    let delta_e = DE2000::new(color_1, color_2, Default::default());
     println!("The color difference is: {}", delta_e);
 }
 ```
