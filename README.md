@@ -17,7 +17,7 @@ If you're using Cargo, just add DeltaE to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-delta_e = "0.2.0"
+delta_e = "0.2"
 ```
 
 ## Example
