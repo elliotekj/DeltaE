@@ -1,5 +1,21 @@
 use super::{f32, Lab};
 
+pub struct KSubArgs {
+    pub l: f32,
+    pub c: f32,
+    pub h: f32,
+}
+
+impl Default for KSubArgs {
+    fn default() -> Self {
+        Self {
+            l: 1.0,
+            c: 1.0,
+            h: 1.0,
+        }
+    }
+}
+
 pub struct DE2000;
 
 impl DE2000 {
@@ -27,16 +43,12 @@ impl DE2000 {
     ///         b: 54.497,
     ///     };
     ///
-    ///     let delta_e = DE2000::new(color_1, color_2);
+    ///     let delta_e = DE2000::new(color_1, color_2, Default::default());
     ///     println!("The color difference is: {}", delta_e);
     /// }
     /// ```
 
-    pub fn new(color_1: Lab, color_2: Lab) -> f32 {
-        let ksub_l = 1.0;
-        let ksub_c = 1.0;
-        let ksub_h = 1.0;
-
+    pub fn new(color_1: Lab, color_2: Lab, ksub: KSubArgs) -> f32 {
         let delta_l_prime = color_2.l - color_1.l;
 
         let l_bar = (color_1.l + color_2.l) / 2.0;
@@ -79,11 +91,11 @@ impl DE2000 {
 
         let r_sub_t = get_r_sub_t(c_bar_prime, upcase_h_bar_prime);
 
-        let lightness: f32 = delta_l_prime / (ksub_l * s_sub_l);
+        let lightness: f32 = delta_l_prime / (ksub.l * s_sub_l);
 
-        let chroma: f32 = delta_c_prime / (ksub_c * s_sub_c);
+        let chroma: f32 = delta_c_prime / (ksub.c * s_sub_c);
 
-        let hue: f32 = delta_upcase_h_prime / (ksub_h * s_sub_upcase_h);
+        let hue: f32 = delta_upcase_h_prime / (ksub.h * s_sub_upcase_h);
 
         (lightness.powi(2) + chroma.powi(2) + hue.powi(2) + r_sub_t * chroma * hue).sqrt()
     }
@@ -110,7 +122,7 @@ impl DE2000 {
         let lab_1 = Lab::from_rgb(color_1);
         let lab_2 = Lab::from_rgb(color_2);
 
-        DE2000::new(lab_1, lab_2)
+        DE2000::new(lab_1, lab_2, Default::default())
     }
 }
 
@@ -196,7 +208,10 @@ mod tests {
             b: lab2[2],
         };
 
-        assert_eq!(round(DE2000::new(color_1, color_2)), expected);
+        assert_eq!(
+            round(DE2000::new(color_1, color_2, Default::default())),
+            expected
+        );
     }
 
     // Tests taken from Table 1: "CIEDE2000 total color difference test data" of

@@ -26,7 +26,7 @@
 //!         b: 54.497,
 //!     };
 //!
-//!     let delta_e = DE2000::new(color_1, color_2);
+//!     let delta_e = DE2000::new(color_1, color_2, Default::default());
 //!     println!("The color difference is: {}", delta_e);
 //! }
 //! ```
@@ -38,4 +38,4 @@ use lab::Lab;
 
 mod de2000;
 
-pub use de2000::DE2000;
+pub use de2000::{ DE2000, KSubArgs };
