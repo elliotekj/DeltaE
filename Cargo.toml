@@ -12,4 +12,4 @@ categories = ["algorithms", "multimedia::images"]
 license = "MIT"
 
 [dependencies]
-lab = "0.4.2"
+lab = "0.7"
